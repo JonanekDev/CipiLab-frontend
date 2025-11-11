@@ -1,0 +1,29 @@
+{
+  "common": {
+    "slogan": "Váš homelab, jednoduše."
+  },
+  "auth": {
+    "welcomeBack": "Vítejte zpět!",
+    "loginDesc": "Přihlašte se pro přístup ke správě vašeho homelabu",
+    "login": "Přihlásit se",
+    "username": "Uživatelské jméno",
+    "email": "Email",
+    "password": "Heslo",
+    "confirmPassword": "Potvrzení hesla",
+    "rememberMe": "Zapamatovat si mě",
+    "forgotPassword": "Zapomněli jste heslo?",
+    "loginLoading": "Přihlašuji...",
+    "loginError": "Chyba při přihlašování. Zkontrolujte své údaje a zkuste to znovu.",
+    "logout": "Odhlásit se"
+  },
+  "setup": {
+    "welcome": "Vítejte v CipiLab!",
+    "setupDesc": "Nastavme váš administrátorský účet, abyste mohli začít.",
+    "serverName": "Název serveru",
+    "completeSetup": "Dokončit nastavení",
+    "completeSetupLoading": "Nastavuji..."
+  },
+  "dashboard": {
+    "greeting": "Vítej, {name}!"
+  }
+}

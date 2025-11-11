@@ -1,0 +1,29 @@
+{
+  "common": {
+    "slogan": "Your homelab, simplified."
+  },
+  "auth": {
+    "welcomeBack": "Welcome back!",
+    "loginDesc": "Log in to access your homelab dashboard.",
+    "login": "Log in",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot your password?",
+    "loginLoading": "Logging in...",
+    "loginError": "Login error. Please check your credentials and try again.",
+    "logout": "Log out"
+  },
+  "setup": {
+    "welcome": "Welcome to CipiLab!",
+    "setupDesc": "Let's set up your admin account to get started.",
+    "serverName": "Server Name",
+    "completeSetup": "Complete Setup",
+    "completeSetupLoading": "Setting up..."
+  },
+  "dashboard": {
+    "greeting": "Welcome, {name}!"
+  }
+}
