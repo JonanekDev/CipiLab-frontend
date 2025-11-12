@@ -14,14 +14,21 @@
     "forgotPassword": "Forgot your password?",
     "loginLoading": "Logging in...",
     "loginError": "Login error. Please check your credentials and try again.",
-    "logout": "Log out"
+    "logout": "Log out",
+    "usernameLength": "Username must be between {min} and {max} characters long",
+    "usernamePattern": "Username can only contain letters, numbers, and underscores",
+    "emailPattern": "Email address is not valid",
+    "passwordsHasToMatch": "Passwords has to match",
+    "passwordMinLength": "Password must be at least {min} characters long",
+    "passwordPattern": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
   },
   "setup": {
     "welcome": "Welcome to CipiLab!",
     "setupDesc": "Let's set up your admin account to get started.",
     "serverName": "Server Name",
     "completeSetup": "Complete Setup",
-    "completeSetupLoading": "Setting up..."
+    "completeSetupLoading": "Setting up...",
+    "serverNameLength": "Server name must be at least {min} characters long"
   },
   "dashboard": {
     "greeting": "Welcome, {name}!"

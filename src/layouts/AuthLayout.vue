@@ -10,7 +10,7 @@
       <div class="auth-box">
         <div class="logo-section">
           <div class="logo">CipiLab</div>
-          <div class="logo-subtitle">{{  $t("common.slogan") }}</div>
+          <div class="logo-subtitle">{{ $t('common.slogan') }}</div>
         </div>
 
         <slot />
@@ -72,7 +72,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
   33% {

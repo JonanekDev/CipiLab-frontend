@@ -23,15 +23,12 @@
     <section class="apps-section">
       <h2 class="section-title">Rychlý přístup k aplikacím</h2>
       <div class="apps-grid">
-        <a
-          v-for="app in apps"
-          :key="app.name"
-          :href="app.url"
-          class="app-card"
-        >
+        <a v-for="app in apps" :key="app.name" :href="app.url" class="app-card">
           <div class="app-icon">{{ app.icon }}</div>
           <div class="app-name">{{ app.name }}</div>
-          <div class="app-status" :class="app.status">{{ app.status === 'online' ? 'Online' : 'Offline' }}</div>
+          <div class="app-status" :class="app.status">
+            {{ app.status === 'online' ? 'Online' : 'Offline' }}
+          </div>
         </a>
       </div>
     </section>
@@ -41,7 +38,7 @@
       <table class="services-table">
         <thead>
           <tr>
-            <th style="width: 50px;"></th>
+            <th style="width: 50px"></th>
             <th>Název služby</th>
             <th>Stav</th>
             <th>Akce</th>
@@ -67,7 +64,10 @@
                 <div class="service-type">{{ service.typeLabel }}</div>
               </td>
               <td>
-                <span class="status-badge" :class="service.status === 'online' ? 'status-online' : 'status-offline'">
+                <span
+                  class="status-badge"
+                  :class="service.status === 'online' ? 'status-online' : 'status-offline'"
+                >
                   {{ service.status === 'online' ? 'Online' : 'Offline' }}
                 </span>
               </td>
@@ -76,19 +76,34 @@
                   <button class="action-btn" @click="handleAction(service, 'stop')">
                     {{ service.status === 'online' ? 'Zastavit' : 'Spustit' }}
                   </button>
-                  <button v-if="service.type === 'container' && service.status === 'online'" class="action-btn" @click="handleAction(service, 'restart')">
+                  <button
+                    v-if="service.type === 'container' && service.status === 'online'"
+                    class="action-btn"
+                    @click="handleAction(service, 'restart')"
+                  >
                     🔄 Restart
                   </button>
-                  <button v-if="service.type === 'container' && service.status === 'online'" class="action-btn" @click="handleAction(service, 'console')">
+                  <button
+                    v-if="service.type === 'container' && service.status === 'online'"
+                    class="action-btn"
+                    @click="handleAction(service, 'console')"
+                  >
                     📟 Konzole
                   </button>
-                  <button v-if="service.type === 'container' && service.status === 'online'" class="action-btn" @click="handleAction(service, 'logs')">
+                  <button
+                    v-if="service.type === 'container' && service.status === 'online'"
+                    class="action-btn"
+                    @click="handleAction(service, 'logs')"
+                  >
                     📋 Logy
                   </button>
                 </div>
               </td>
             </tr>
-            <tr v-if="service.type === 'compose' && expandedServices.includes(index)" class="sub-row">
+            <tr
+              v-if="service.type === 'compose' && expandedServices.includes(index)"
+              class="sub-row"
+            >
               <td colspan="4">
                 <div class="sub-services">
                   <div
@@ -99,15 +114,24 @@
                     <div class="container-name">
                       <span class="docker-icon">🐳</span>
                       <span>{{ container.name }}</span>
-                      <span class="status-badge small" :class="container.status === 'online' ? 'status-online' : 'status-offline'">
+                      <span
+                        class="status-badge small"
+                        :class="container.status === 'online' ? 'status-online' : 'status-offline'"
+                      >
                         {{ container.status === 'online' ? 'online' : 'offline' }}
                       </span>
                     </div>
                     <div class="action-buttons">
-                      <button class="action-btn" @click="handleContainerAction(container, 'restart')">
+                      <button
+                        class="action-btn"
+                        @click="handleContainerAction(container, 'restart')"
+                      >
                         🔄 Restart
                       </button>
-                      <button class="action-btn" @click="handleContainerAction(container, 'console')">
+                      <button
+                        class="action-btn"
+                        @click="handleContainerAction(container, 'console')"
+                      >
                         📟 Konzole
                       </button>
                       <button class="action-btn" @click="handleContainerAction(container, 'logs')">
@@ -126,14 +150,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 const stats = ref({
   online: 5,
   offline: 1,
   cpu: 24,
-  ram: 58
-});
+  ram: 58,
+})
 
 const apps = ref([
   { name: 'Immich', icon: '📸', url: '#immich', status: 'online' },
@@ -141,8 +165,8 @@ const apps = ref([
   { name: 'Web API', icon: '🌐', url: '#webapi', status: 'online' },
   { name: 'Database', icon: '🗄️', url: '#database', status: 'offline' },
   { name: 'Monitoring', icon: '📊', url: '#monitoring', status: 'online' },
-  { name: 'Portainer', icon: '🐳', url: '#portainer', status: 'online' }
-]);
+  { name: 'Portainer', icon: '🐳', url: '#portainer', status: 'online' },
+])
 
 const services = ref([
   {
@@ -153,15 +177,15 @@ const services = ref([
     status: 'online',
     containers: [
       { name: 'immich-server', status: 'online' },
-      { name: 'immich-ml', status: 'online' }
-    ]
+      { name: 'immich-ml', status: 'online' },
+    ],
   },
   {
     name: 'AdGuard Home',
     icon: '🛡️',
     type: 'container',
     typeLabel: 'Docker container',
-    status: 'online'
+    status: 'online',
   },
   {
     name: 'Web API',
@@ -171,8 +195,8 @@ const services = ref([
     status: 'online',
     containers: [
       { name: 'nginx-proxy', status: 'online' },
-      { name: 'backend', status: 'online' }
-    ]
+      { name: 'backend', status: 'online' },
+    ],
   },
   {
     name: 'Database',
@@ -180,9 +204,7 @@ const services = ref([
     type: 'compose',
     typeLabel: 'Docker Compose stack',
     status: 'offline',
-    containers: [
-      { name: 'postgres', status: 'offline' }
-    ]
+    containers: [{ name: 'postgres', status: 'offline' }],
   },
   {
     name: 'Monitoring',
@@ -192,29 +214,29 @@ const services = ref([
     status: 'online',
     containers: [
       { name: 'prometheus', status: 'online' },
-      { name: 'grafana', status: 'online' }
-    ]
-  }
-]);
+      { name: 'grafana', status: 'online' },
+    ],
+  },
+])
 
-const expandedServices = ref([]);
+const expandedServices = ref([])
 
 const toggleService = (index) => {
-  const idx = expandedServices.value.indexOf(index);
+  const idx = expandedServices.value.indexOf(index)
   if (idx > -1) {
-    expandedServices.value.splice(idx, 1);
+    expandedServices.value.splice(idx, 1)
   } else {
-    expandedServices.value.push(index);
+    expandedServices.value.push(index)
   }
-};
+}
 
 const handleAction = (service, action) => {
-  console.log(`Action: ${action} on service: ${service.name}`);
-};
+  console.log(`Action: ${action} on service: ${service.name}`)
+}
 
 const handleContainerAction = (container, action) => {
-  console.log(`Action: ${action} on container: ${container.name}`);
-};
+  console.log(`Action: ${action} on container: ${container.name}`)
+}
 </script>
 
 <style scoped>

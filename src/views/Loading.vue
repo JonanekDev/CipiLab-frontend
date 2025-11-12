@@ -2,13 +2,12 @@
   <div class="loading-view">
     <div class="loading-container">
       <div class="loading-logo">CipiLab</div>
-      
+
       <div class="dots-animation">
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
       </div>
-      
     </div>
   </div>
 </template>
@@ -70,7 +69,9 @@
 }
 
 @keyframes bounce {
-  0%, 80%, 100% {
+  0%,
+  80%,
+  100% {
     transform: scale(0.8) translateY(0);
     opacity: 0.5;
   }

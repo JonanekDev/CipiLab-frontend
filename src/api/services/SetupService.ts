@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { InitDashboardDto } from '../models/InitDashboardDto';
+import type { InitDashboardReqDto } from '../models/InitDashboardReqDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -13,7 +13,7 @@ export class SetupService {
      * @throws ApiError
      */
     public static setupControllerInitializeSetup(
-        requestBody: InitDashboardDto,
+        requestBody: InitDashboardReqDto,
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',

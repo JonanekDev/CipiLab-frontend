@@ -7,7 +7,7 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
-export type { InitDashboardDto } from './models/InitDashboardDto';
+export type { InitDashboardReqDto } from './models/InitDashboardReqDto';
 export type { LoginReqDto } from './models/LoginReqDto';
 export type { LoginResDto } from './models/LoginResDto';
 export type { StatusResponseDto } from './models/StatusResponseDto';

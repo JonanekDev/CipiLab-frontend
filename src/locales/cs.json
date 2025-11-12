@@ -14,7 +14,13 @@
     "forgotPassword": "Zapomněli jste heslo?",
     "loginLoading": "Přihlašuji...",
     "loginError": "Chyba při přihlašování. Zkontrolujte své údaje a zkuste to znovu.",
-    "logout": "Odhlásit se"
+    "logout": "Odhlásit se",
+    "usernameLength": "Uživatelské jméno musí mít alespoň {min} znaků a maximálně {max} znaků",
+    "usernamePattern": "Uživatelské jméno může obsahovat pouze písmena, číslice a podtržítka",
+    "emailPattern": "Emailová adresa není platná",
+    "passwordsHasToMatch": "Hesla se musí shodovat",
+    "passwordMinLength": "Heslo musí mít alespoň {min} znaků",
+    "passwordPattern": "Heslo musí obsahovat alespoň jedno velké písmeno, jedno malé písmeno, jedno číslo a jeden speciální znak"
   },
   "setup": {
     "welcome": "Vítejte v CipiLab!",

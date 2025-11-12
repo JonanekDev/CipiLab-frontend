@@ -53,7 +53,7 @@ axios.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error)
-  }
+  },
 )
 
 // Response interceptor with token refresh logic
@@ -114,7 +114,7 @@ axios.interceptors.response.use(
     } finally {
       isRefreshing = false
     }
-  }
+  },
 )
 
 export { axios }

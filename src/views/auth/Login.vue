@@ -55,38 +55,42 @@
 </template>
 
 <script setup lang="ts">
-import type { LoginReqDto } from '@/api';
-import { i18n } from '@/i18n';
-import { useAuthStore } from '@/stores/auth';
-import { ref, watch } from 'vue';
+import type { LoginReqDto } from '@/api'
+import { i18n } from '@/utils/i18n'
+import { useAuthStore } from '@/stores/auth'
+import { ref, watch } from 'vue'
 
 const credentials = ref<LoginReqDto>({
   email: '',
   password: '',
   rememberMe: false,
-});
-const showPassword = ref(false);
-const loading = ref(false);
-const errorMessage = ref('');
+})
+const showPassword = ref(false)
+const loading = ref(false)
+const errorMessage = ref('')
 
 // Clear error message when user starts typing
-watch([credentials], () => {
-  if (errorMessage.value) {
-    errorMessage.value = ''
-  }
-}, { deep: true });
+watch(
+  [credentials],
+  () => {
+    if (errorMessage.value) {
+      errorMessage.value = ''
+    }
+  },
+  { deep: true },
+)
 
 const handleLogin = async () => {
-  loading.value = true;
-  errorMessage.value = '';
+  loading.value = true
+  errorMessage.value = ''
 
-  const AuthStore = useAuthStore();
+  const AuthStore = useAuthStore()
   try {
-    await AuthStore.login(credentials.value);
+    await AuthStore.login(credentials.value)
   } catch (error: any) {
-    errorMessage.value = i18n.global.t('auth.loginError') as string;
+    errorMessage.value = i18n.global.t('auth.loginError') as string
   } finally {
-    loading.value = false;
+    loading.value = false
   }
 }
 </script>

@@ -85,9 +85,9 @@ export const useAuthStore = defineStore('auth', () => {
   async function fetchCurrentUser(): Promise<void> {
     try {
       const response = await StatusService.statusControllerGetStatus()
-      
+
       setupCompleted.value = response.setupCompleted
-      
+
       if (response.user) {
         user.value = response.user
       } else if (session.value?.accessToken) {
@@ -134,10 +134,10 @@ export const useAuthStore = defineStore('auth', () => {
     user,
     loading,
     setupCompleted,
-    
+
     // Computed
     isAuthenticated,
-    
+
     // Actions
     login,
     logout,

@@ -11,21 +11,21 @@ const router = createRouter({
       path: '/login',
       name: 'Login',
       component: Login,
-      meta: { 
+      meta: {
         layout: 'auth',
         requiresAuth: false,
-        title: 'Přihlášení'
+        title: 'Přihlášení',
       },
     },
     {
       path: '/setup',
       name: 'Setup',
       component: Setup,
-      meta: { 
+      meta: {
         layout: 'auth',
         requiresAuth: false,
         requiresSetup: true,
-        title: 'Nastavení'
+        title: 'Nastavení',
       },
     },
     {
@@ -34,7 +34,7 @@ const router = createRouter({
       component: Main,
       meta: {
         requiresAuth: true,
-        title: 'Dashboard'
+        title: 'Dashboard',
       },
     },
   ],
