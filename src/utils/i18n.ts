@@ -24,7 +24,7 @@ const i18n = createI18n({
 
 async function loadMessages(lang: Lang) {
   if (i18n.global.availableLocales.includes(lang)) return
-  const module = await import(`./locales/${lang}.json`)
+  const module = await import(`../locales/${lang}.json`)
   const messages = module.default
   i18n.global.setLocaleMessage(lang, messages)
 }

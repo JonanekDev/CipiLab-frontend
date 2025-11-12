@@ -5,6 +5,7 @@
 import type { UserEntity } from './UserEntity';
 export type StatusResponseDto = {
     setupCompleted: boolean;
+    serverName?: string;
     user?: UserEntity;
 };
 

@@ -21,6 +21,7 @@ export const useAuthStore = defineStore('auth', () => {
   const session = ref<TokenRefreshResDto | null>(null)
   const user = ref<UserEntity | null>(null)
   const setupCompleted = ref<boolean | null>(null)
+  const serverName = ref<string | undefined>(undefined)
   const loading = ref(true)
 
   // Computed
@@ -87,6 +88,7 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await StatusService.statusControllerGetStatus()
 
       setupCompleted.value = response.setupCompleted
+      serverName.value = response.serverName
 
       if (response.user) {
         user.value = response.user
@@ -134,6 +136,7 @@ export const useAuthStore = defineStore('auth', () => {
     user,
     loading,
     setupCompleted,
+    serverName,
 
     // Computed
     isAuthenticated,

@@ -14,6 +14,7 @@ export type { StatusResponseDto } from './models/StatusResponseDto';
 export type { TokenRefreshReqDto } from './models/TokenRefreshReqDto';
 export type { TokenRefreshResDto } from './models/TokenRefreshResDto';
 export type { UserEntity } from './models/UserEntity';
+export { UserRole } from './models/UserRole';
 
 export { AppService } from './services/AppService';
 export { AuthService } from './services/AuthService';

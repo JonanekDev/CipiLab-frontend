@@ -4,6 +4,7 @@
   },
   "auth": {
     "welcomeBack": "Vítejte zpět!",
+    "loginTitle": "Přihlášení",
     "loginDesc": "Přihlašte se pro přístup ke správě vašeho homelabu",
     "login": "Přihlásit se",
     "username": "Uživatelské jméno",
@@ -15,7 +16,7 @@
     "loginLoading": "Přihlašuji...",
     "loginError": "Chyba při přihlašování. Zkontrolujte své údaje a zkuste to znovu.",
     "logout": "Odhlásit se",
-    "usernameLength": "Uživatelské jméno musí mít alespoň {min} znaků a maximálně {max} znaků",
+    "usernameLength": "Uživatelské jméno musí mít alespoň {min} znaky a maximálně {max} znaků",
     "usernamePattern": "Uživatelské jméno může obsahovat pouze písmena, číslice a podtržítka",
     "emailPattern": "Emailová adresa není platná",
     "passwordsHasToMatch": "Hesla se musí shodovat",
@@ -23,13 +24,39 @@
     "passwordPattern": "Heslo musí obsahovat alespoň jedno velké písmeno, jedno malé písmeno, jedno číslo a jeden speciální znak"
   },
   "setup": {
+    "setupTitle": "Prvotání nastavení",
     "welcome": "Vítejte v CipiLab!",
     "setupDesc": "Nastavme váš administrátorský účet, abyste mohli začít.",
     "serverName": "Název serveru",
     "completeSetup": "Dokončit nastavení",
-    "completeSetupLoading": "Nastavuji..."
+    "completeSetupLoading": "Nastavuji...",
+    "serverNameLength": "Název serveru musí mít alespoň {min} znaky a maximálně {max} znaků",
+    "setupWasSuccessful": "Nastavení bylo úspěšné! Nyní se můžete přihlásit."
   },
   "dashboard": {
-    "greeting": "Vítej, {name}!"
+    "overviewTitle": "Přehled",
+    "greeting": "Vítej, {name}!",
+    "account": {
+      "profile": "Profil",
+      "activeSessions": "Aktivní relace",
+      "userInfo": "Informace o uživateli",
+      "changePassword": "Změnit heslo",
+      "oldPassword": "Původní heslo",
+      "newPassword": "Nové heslo",
+      "confirmNewPassword": "Potvrdit nové heslo"
+    }
+  },
+  "nav": {
+    "overview": "Přehled",
+    "settings": "Nastavení",
+    "globalSettings": "Globální nastavení",
+    "userManagement": "Správa uživatelů",
+    "account": "Účet"
+  },
+  "roles": {
+    "FULL_ADMIN": "Správce",
+    "SERVICES_ADMIN": "Správce služeb",
+    "VIEWONLY_ADMIN": "Pouze pro čtení",
+    "USER": "Uživatel"
   }
 }

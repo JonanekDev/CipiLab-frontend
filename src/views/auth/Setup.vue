@@ -23,6 +23,7 @@
           type="text"
           id="username"
           class="form-input"
+          :maxlength="validationRules.username?.maxLength"
           :class="{ 'input-error': errors.username.length > 0 }"
           placeholder="Admin"
           @input="touched.username = true"
@@ -59,7 +60,9 @@
             :type="showPassword ? 'text' : 'password'"
             id="password"
             class="form-input"
+            maxlength="128"
             placeholder="••••••••"
+            :class="{ 'input-error': hasError('password', 'length') || hasError('password', 'pattern') }"
             @input="touched.password = true"
             required
           />
@@ -106,7 +109,7 @@
           required
         />
         <div v-if="hasError('serverName', 'length')" class="form-hint hint-error">
-          {{ $t('setup.serverNameLength', { min: validationRules.serverName?.minLength }) }}
+          {{ $t('setup.serverNameLength', { min: validationRules.serverName?.minLength, max: validationRules.serverName?.maxLength }) }}
         </div>
       </div>
 

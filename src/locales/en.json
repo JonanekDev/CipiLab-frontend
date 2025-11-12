@@ -4,6 +4,7 @@
   },
   "auth": {
     "welcomeBack": "Welcome back!",
+    "loginTitle": "Login",
     "loginDesc": "Log in to access your homelab dashboard.",
     "login": "Log in",
     "username": "Username",
@@ -23,14 +24,38 @@
     "passwordPattern": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
   },
   "setup": {
+    "setupTitle": "Initial Setup",
     "welcome": "Welcome to CipiLab!",
     "setupDesc": "Let's set up your admin account to get started.",
     "serverName": "Server Name",
     "completeSetup": "Complete Setup",
     "completeSetupLoading": "Setting up...",
-    "serverNameLength": "Server name must be at least {min} characters long"
+    "serverNameLength": "Server name must be between {min} and {max} characters long",
+    "setupWasSuccessful": "Setup was successful! You can now log in."
   },
   "dashboard": {
-    "greeting": "Welcome, {name}!"
+    "overviewTitle": "Overview",
+    "greeting": "Welcome, {name}!",
+    "account": {
+      "profile": "Profile",
+      "activeSessions": "Active Sessions",
+      "userInfo": "User Information",
+      "changePassword": "Change Password",
+      "oldPassword": "Old Password",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password"
+    }
+  },
+  "nav": {
+    "overview": "Overview",
+    "settings": "Settings",
+    "globalSettings": "Global Settings",
+    "userManagement": "User Management"
+  },
+  "roles": {
+    "FULL_ADMIN": "Full Administrator",
+    "SERVICES_ADMIN": "Services Administrator",
+    "VIEWONLY_ADMIN": "View-Only Administrator",
+    "USER": "User"
   }
 }

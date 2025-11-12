@@ -1,13 +1,18 @@
 <template>
   <div class="dashboard-layout">
     <header class="header">
-      <div class="logo">CipiLab</div>
+      <div class="logo">CipiLab<br>
+        <span class="logo-subtitle">{{ authStore.serverName }}</span>
+      </div>
       <nav class="nav">
-        <a href="#prehled" class="nav-link">Přehled</a>
-        <a href="#monitoring" class="nav-link">Monitoring</a>
-        <a href="#sluzby" class="nav-link">Služby</a>
-        <a href="#nastaveni" class="nav-link">Nastavení</a>
-        <a href="#administrace" class="nav-link">⚙️ Administrace</a>
+        <router-link
+          v-for="item in visibleMenuItems"
+          :key="item.name"
+          :to="{ name: item.name }"
+          class="nav-link"
+        >
+          {{ item.label }}
+        </router-link>
       </nav>
       <div class="user-section">
         <button class="btn btn-primary">➕ Spustit novou službu</button>
@@ -15,11 +20,11 @@
           <span class="user-avatar">👤</span>
           <div class="user-details">
             <div class="user-email">{{ authStore.user?.username }}</div>
-            <div class="user-role">Správce</div>
+            <div class="user-role">{{ $t(`roles.${authStore.user?.role}`) }}</div>
           </div>
         </div>
-        <button class="btn btn-secondary">Účet</button>
-        <button class="btn btn-secondary" @click="handleLogout">Odhlásit</button>
+        <router-link :to="{ name: 'AccountProfile' }" class="btn btn-secondary">{{ $t('nav.account') }}</router-link>
+        <button class="btn btn-secondary" @click="handleLogout">{{ $t('auth.logout') }}</button>
       </div>
     </header>
 
@@ -30,9 +35,34 @@
 </template>
 
 <script setup lang="ts">
+
+import type { UserRole } from '@/api';
 import { useAuthStore } from '@/stores/auth'
+import { i18n } from '@/utils/i18n';
+import { hasPermission } from '@/utils/roles';
+import { computed } from 'vue';
+import { RouterLink, useRouter } from 'vue-router';
 
 const authStore = useAuthStore()
+const router = useRouter()
+
+const menuItems = [
+  { name: 'Overview', label: '🏠 ' + i18n.global.t('nav.overview') },
+  { name: 'SettingsGeneral', label: '⚙️ ' + i18n.global.t('nav.settings') },
+]
+
+const visibleMenuItems = computed(() => {
+  return menuItems.filter(item => {
+    const route = router.resolve({ name: item.name })
+    const requiredRole = route.meta.requiredRole as UserRole | undefined
+    
+    if (!requiredRole) {
+      return true
+    }
+    
+    return authStore.user && hasPermission(authStore.user.role, requiredRole)
+  })
+})
 
 async function handleLogout() {
   await authStore.logout()
@@ -59,6 +89,12 @@ async function handleLogout() {
   font-weight: bold;
   color: var(--color-primary);
   text-shadow: 0 0 20px rgba(28, 175, 135, 0.3);
+}
+
+.logo-subtitle {
+  font-size: 20px;
+  color: var(--color-text);
+  text-shadow: none;
 }
 
 .nav {
