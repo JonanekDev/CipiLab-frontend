@@ -30,7 +30,7 @@ async function loadMessages(lang: Lang) {
 }
 
 async function setLang(lang: Lang) {
-  loadMessages(lang)
+  await loadMessages(lang)
   localStorage.setItem('lang', lang)
   i18n.global.locale.value = lang
 }

@@ -5,17 +5,15 @@
       <p>{{ $t('setup.setupDesc') }}</p>
     </div>
 
-    <div v-if="errorMessage.length > 0" class="error-message">
-      <ul>
-        <li v-for="(msg, index) in errorMessage" :key="index">{{ msg }}</li>
-      </ul>
+    <div v-if="errorMessage" class="error-message">
+      {{ errorMessage }}
     </div>
 
     <div v-if="successMessage" class="success-message">
       {{ successMessage }}
     </div>
 
-     <form @submit.prevent="handleSetup">
+    <form @submit.prevent="handleSetup">
       <div class="form-group">
         <label class="form-label" for="username">{{ $t('auth.username') }}</label>
         <input
@@ -24,13 +22,20 @@
           id="username"
           class="form-input"
           :maxlength="validationRules.username?.maxLength"
-          :class="{ 'input-error': errors.username.length > 0 }"
+          :class="{
+            'input-error': hasError('username', 'length') || hasError('username', 'pattern'),
+          }"
           placeholder="Admin"
-          @input="touched.username = true"
+          @input="onFieldChange('username')"
           required
         />
         <div class="form-hint" :class="{ 'hint-error': hasError('username', 'length') }">
-          {{ $t('auth.usernameLength', { min: validationRules.username?.minLength, max: validationRules.username?.maxLength }) }}
+          {{
+            $t('auth.usernameLength', {
+              min: validationRules.username?.minLength,
+              max: validationRules.username?.maxLength,
+            })
+          }}
         </div>
         <div class="form-hint" :class="{ 'hint-error': hasError('username', 'pattern') }">
           {{ $t('auth.usernamePattern') }}
@@ -46,10 +51,12 @@
           class="form-input"
           :class="{ 'input-error': hasError('email', 'pattern') }"
           placeholder="email@scipak.eu"
-          @input="touched.email = true"
+          @input="onFieldChange('email')"
           required
         />
-        <div v-if="hasError('email', 'pattern')" class="form-hint hint-error">{{ $t('auth.emailPattern') }}</div>
+        <div v-if="hasError('email', 'pattern')" class="form-hint hint-error">
+          {{ $t('auth.emailPattern') }}
+        </div>
       </div>
 
       <div class="form-group">
@@ -62,8 +69,10 @@
             class="form-input"
             maxlength="128"
             placeholder="••••••••"
-            :class="{ 'input-error': hasError('password', 'length') || hasError('password', 'pattern') }"
-            @input="touched.password = true"
+            :class="{
+              'input-error': hasError('password', 'length') || hasError('password', 'pattern'),
+            }"
+            @input="onFieldChange('password')"
             required
           />
           <button type="button" class="toggle-password" @click="showPassword = !showPassword">
@@ -73,27 +82,28 @@
         <div class="form-hint" :class="{ 'hint-error': hasError('password', 'length') }">
           {{ $t('auth.passwordMinLength', { min: validationRules.password?.minLength }) }}
         </div>
-        <div class="form-hint" :class="{ 'hint-error': hasError('password', 'pattern') }">{{ $t('auth.passwordPattern') }}</div>
+        <div class="form-hint" :class="{ 'hint-error': hasError('password', 'pattern') }">
+          {{ $t('auth.passwordPattern') }}
+        </div>
       </div>
 
       <div class="form-group">
         <label class="form-label" for="confirmPassword">{{ $t('auth.confirmPassword') }}</label>
         <div class="password-wrapper">
           <input
-            v-model="confirmPassword"
-            :type="showConfirmPassword ? 'text' : 'password'"
+            v-model="setup.confirmPassword"
+            type="password"
             id="confirmPassword"
             class="form-input"
             placeholder="••••••••"
-            @input="touched.confirmPassword = true"
+            @input="onFieldChange('confirmPassword')"
             :class="{ 'input-error': hasError('confirmPassword', 'match') }"
             required
           />
-          <button type="button" class="toggle-password" @click="showConfirmPassword = !showConfirmPassword">
-            {{ showConfirmPassword ? '🙈' : '👁️' }}
-          </button>
         </div>
-        <div v-if="hasError('confirmPassword', 'match')" class="form-hint hint-error">{{ $t('auth.passwordsHasToMatch') }}</div>
+        <div v-if="hasError('confirmPassword', 'match')" class="form-hint hint-error">
+          {{ $t('auth.passwordsHasToMatch') }}
+        </div>
       </div>
 
       <div class="form-group">
@@ -105,11 +115,16 @@
           class="form-input"
           placeholder="Jonáš's CipiLab"
           :class="{ 'input-error': hasError('serverName', 'length') }"
-          @input="touched.serverName = true"
+          @input="onFieldChange('serverName')"
           required
         />
         <div v-if="hasError('serverName', 'length')" class="form-hint hint-error">
-          {{ $t('setup.serverNameLength', { min: validationRules.serverName?.minLength, max: validationRules.serverName?.maxLength }) }}
+          {{
+            $t('setup.serverNameLength', {
+              min: validationRules.serverName?.minLength,
+              max: validationRules.serverName?.maxLength,
+            })
+          }}
         </div>
       </div>
 
@@ -124,97 +139,88 @@
 import type { InitDashboardReqDto } from '@/api'
 import { SetupService } from '@/api'
 import router from '@/router'
-import { getValidationRules } from '@/utils/validation'
-import { computed, ref, watch } from 'vue'
+import { i18n } from '@/utils/i18n'
+import {
+  getValidationRules,
+  validateField,
+  type SchemaName,
+  type ValidationError,
+} from '@/utils/validation'
+import { computed, ref } from 'vue'
 
-const setup = ref<InitDashboardReqDto>({
+const showPassword = ref(false)
+const loading = ref(false)
+const errorMessage = ref<string>('')
+const successMessage = ref('')
+
+type SetupForm = InitDashboardReqDto & {
+  confirmPassword: string
+}
+
+const setup = ref<SetupForm>({
   username: '',
   email: '',
   password: '',
   serverName: '',
+  confirmPassword: '',
 })
 
-const confirmPassword = ref('')
-const showPassword = ref(false)
-const showConfirmPassword = ref(false)
-const loading = ref(false)
-const errorMessage = ref<string[]>([])
-const successMessage = ref('')
+const schemaName: SchemaName = 'InitDashboardReqDto'
 
-// Zjednodušená struktura pro touched fields
-const touched = ref<Record<string, boolean>>({
-  username: false,
-  email: false,
-  password: false,
-  confirmPassword: false,
-  serverName: false,
-})
-
-// Validační pravidla
 const validationRules = {
-  username: getValidationRules('InitDashboardReqDto', 'username'),
-  password: getValidationRules('InitDashboardReqDto', 'password'),
-  email: getValidationRules('InitDashboardReqDto', 'email'),
-  serverName: getValidationRules('InitDashboardReqDto', 'serverName'),
+  username: getValidationRules(schemaName, 'username'),
+  email: getValidationRules(schemaName, 'email'),
+  password: getValidationRules(schemaName, 'password'),
+  serverName: getValidationRules(schemaName, 'serverName'),
 }
 
-// Generická validační funkce
-const validateField = (field: keyof typeof setup.value, value: string) => {
-  const rules = validationRules[field]
-  const errors: string[] = []
-
-  if (rules?.minLength && value.length < rules.minLength) {
-    errors.push('length')
-  }
-  if (rules?.maxLength && value.length > rules.maxLength) {
-    errors.push('length')
-  }
-  if (rules?.pattern && !new RegExp(rules.pattern.replace(/^\/|\/$/g, '')).test(value)) {
-    errors.push('pattern')
-  }
-
-  return errors
-}
-
-// Computed validační errors
-const errors = computed(() => ({
-  username: touched.value.username ? validateField('username', setup.value.username) : [],
-  email: touched.value.email ? validateField('email', setup.value.email) : [],
-  password: touched.value.password ? validateField('password', setup.value.password) : [],
-  serverName: touched.value.serverName ? validateField('serverName', setup.value.serverName) : [],
-  confirmPassword: touched.value.confirmPassword && setup.value.password !== confirmPassword.value ? ['match'] : [],
-}))
-
-// Helper funkce pro kontrolu typu chyby
-const hasError = (field: keyof typeof errors.value, errorType: string) => {
-  return errors.value[field].includes(errorType)
-}
-
-const hasErrors = computed(() => {
-  return Object.values(errors.value).some(fieldErrors => fieldErrors.length > 0)
+const fieldErrors = ref<Record<keyof typeof setup.value, ValidationError[] | null>>({
+  username: [],
+  email: [],
+  password: [],
+  serverName: [],
+  confirmPassword: [],
 })
 
-const allFieldsTouched = computed(() => {
-  return Object.values(touched.value).every(val => val)
-})
+function onFieldChange(field: keyof typeof setup.value) {
+  if (field == 'confirmPassword') {
+    fieldErrors.value.confirmPassword =
+      setup.value.password === setup.value.confirmPassword ? [] : ['match']
+    return
+  }
+  fieldErrors.value[field] = validateField(schemaName, field, setup.value[field])
+}
+
+const hasError = (field: keyof typeof setup.value, errorType: ValidationError) => {
+  return fieldErrors.value[field]?.includes(errorType) ?? false
+}
 
 const isSubmitDisabled = computed(() => {
-  return loading.value || hasErrors.value || !allFieldsTouched.value
+  const allFilled = Object.values(setup.value).every((v) => v.trim().length > 0)
+  const noErrors = Object.values(fieldErrors.value).every((errs) => errs?.length === 0)
+  return !allFilled || !noErrors || loading.value
 })
 
 const handleSetup = async () => {
-  errorMessage.value = []
+  if (isSubmitDisabled.value) return
+  errorMessage.value = ''
   successMessage.value = ''
   loading.value = true
 
+  const { confirmPassword, ...dto } = setup.value
+
   try {
-    await SetupService.setupControllerInitializeSetup(setup.value)
-    successMessage.value = 'Účet byl úspěšně vytvořen!'
+    await SetupService.setupControllerInitializeSetup(dto)
+    successMessage.value = i18n.global.t('setup.setupWasSuccessful')
     setTimeout(() => {
       router.push({ name: 'Login' })
     }, 1500)
   } catch (error: any) {
-    errorMessage.value = [error.response?.data?.message || 'Nastala chyba při vytváření účtu']
+    errorMessage.value = i18n.global.t('setup.error')
+    console.log(error)
+    setTimeout(() => {
+      errorMessage.value = ''
+    }, 8000)
   } finally {
     loading.value = false
   }

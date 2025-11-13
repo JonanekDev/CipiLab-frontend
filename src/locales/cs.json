@@ -31,7 +31,8 @@
     "completeSetup": "Dokončit nastavení",
     "completeSetupLoading": "Nastavuji...",
     "serverNameLength": "Název serveru musí mít alespoň {min} znaky a maximálně {max} znaků",
-    "setupWasSuccessful": "Nastavení bylo úspěšné! Nyní se můžete přihlásit."
+    "setupWasSuccessful": "Nastavení bylo úspěšné! Nyní se můžete přihlásit.",
+    "error": "Chyba při dokončování nastavení. Zkuste to prosím znovu."
   },
   "dashboard": {
     "overviewTitle": "Přehled",
@@ -41,9 +42,19 @@
       "activeSessions": "Aktivní relace",
       "userInfo": "Informace o uživateli",
       "changePassword": "Změnit heslo",
+      "changingPassword": "Změna hesla...",
       "oldPassword": "Původní heslo",
       "newPassword": "Nové heslo",
-      "confirmNewPassword": "Potvrdit nové heslo"
+      "confirmNewPassword": "Potvrdit nové heslo",
+      "changePasswordSuccess": "Heslo bylo úspěšně změněno.",
+      "changePasswordBadOldPassword": "Původní heslo je nesprávné.",
+      "changePasswordError": "Chyba při změně hesla. Zkuste to znovu...",
+      "saveChanges": "Uložit změny",
+      "savingChanges": "Ukládám změny...",
+      "reset": "Obnovit původní",
+      "profileUpdated": "Profil byl úspěšně aktualizován.",
+      "profileUpdateError": "Chyba při aktualizaci profilu. Zkuste to znovu.",
+      "language": "Jazyk"
     }
   },
   "nav": {

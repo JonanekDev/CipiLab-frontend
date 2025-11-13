@@ -7,6 +7,7 @@ import {
   type TokenRefreshReqDto,
   AuthService,
   StatusService,
+  type UpdateProfileReqDto,
 } from '@/api'
 import router from '@/router'
 
@@ -63,6 +64,13 @@ export const useAuthStore = defineStore('auth', () => {
     } finally {
       clearSession()
       await router.push('/login')
+    }
+  }
+
+  function update(updatedUser: UpdateProfileReqDto): void {
+    if (user.value) {
+      user.value.username = updatedUser.username
+      user.value.email = updatedUser.email
     }
   }
 
@@ -146,5 +154,6 @@ export const useAuthStore = defineStore('auth', () => {
     logout,
     refreshAccessToken,
     init,
+    update,
   }
 })

@@ -31,7 +31,8 @@
     "completeSetup": "Complete Setup",
     "completeSetupLoading": "Setting up...",
     "serverNameLength": "Server name must be between {min} and {max} characters long",
-    "setupWasSuccessful": "Setup was successful! You can now log in."
+    "setupWasSuccessful": "Setup was successful! You can now log in.",
+    "error": "An error occurred while completing the setup. Please try again."
   },
   "dashboard": {
     "overviewTitle": "Overview",
@@ -43,14 +44,24 @@
       "changePassword": "Change Password",
       "oldPassword": "Old Password",
       "newPassword": "New Password",
-      "confirmNewPassword": "Confirm New Password"
+      "confirmNewPassword": "Confirm New Password",
+      "changePasswordSuccess": "Password has been changed successfully.",
+      "changePasswordBadOldPassword": "The old password is incorrect.",
+      "changePasswordError": "An error occurred while changing the password. Please try again...",
+      "saveChanges": "Save Changes",
+      "savingChanges": "Saving changes...",
+      "reset": "Reset",
+      "profileUpdated": "Profile has been updated successfully.",
+      "profileUpdateError": "An error occurred while updating the profile. Please try again.",
+      "language": "Language"
     }
   },
   "nav": {
     "overview": "Overview",
     "settings": "Settings",
     "globalSettings": "Global Settings",
-    "userManagement": "User Management"
+    "userManagement": "User Management",
+    "account": "Account"
   },
   "roles": {
     "FULL_ADMIN": "Full Administrator",
